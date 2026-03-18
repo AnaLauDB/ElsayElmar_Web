@@ -1,121 +1,115 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
+import ArtistHeader from './components/ArtistHeader';
+import Discografia from './components/Discografia';
+import Reproductor from './components/Reproductor';
+import FotoGaleria from './components/FotoGaleria';
+import CarreraTimeline from './components/CarreraTimeline';
 
-function App() {
-  const [count, setCount] = useState(0)
+/**
+ * 🎤 ELSA Y ELMAR - Web Oficial
+ * 
+ * TODO: Reemplaza 'TU_ID_AQUI' con el ID real de Spotify de Elsa y Elmar
+ * 
+ * ¿Cómo obtener el ID?
+ * 1. Ve a Spotify.com
+ * 2. Busca "Elsa y Elmar"
+ * 3. Haz clic en su perfil
+ * 4. Copia el ID de la URL: https://open.spotify.com/artist/[ID_AQUI]
+ * 
+ * Más detalles en: COMO_OBTENER_ID.md
+ */
+
+// 🎵 CONFIGURE ESTO CON EL ID DE ELSA Y ELMAR
+const ARTIST_ID = '5nKGeITSNCVP76muyOlszy'; // ← REEMPLAZA ESTO
+
+export default function App() {
+  const [initialized, setInitialized] = useState(false);
+  const [showIDBanner, setShowIDBanner] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    if (ARTIST_ID === 'TU_ID_AQUI') {
+      setShowIDBanner(true);
+      setInitialized(false);
+    } else {
+      setShowIDBanner(false);
+      setInitialized(true);
+    }
+  }, []);
+
+  // Manejar modo oscuro/claro
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.add('light-mode');
+    }
+    // Guardar preferencia en localStorage
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  if (!initialized) {
+    return (
+      <div className="app">
+        {showIDBanner && (
+          <div className="id-banner">
+            <div className="banner-content">
+              <h2>🎤 Configuración Requerida</h2>
+              <p>
+                Para que la aplicación funcione, necesitas agregar el ID de Spotify de Elsa y Elmar.
+              </p>
+              <ol>
+                <li>Abre el archivo <code>src/App.jsx</code></li>
+                <li>Busca la línea: <code>const ARTIST_ID = 'TU_ID_AQUI';</code></li>
+                <li>Reemplaza <code>TU_ID_AQUI</code> con el ID real de Spotify</li>
+                <li>Guarda el archivo (la página se recargará automáticamente)</li>
+              </ol>
+              <p className="help-text">
+                📖 Ver instrucciones completas en <code>COMO_OBTENER_ID.md</code>
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      <button className="theme-toggle" onClick={toggleTheme} aria-label="Cambiar tema">
+        {isDarkMode ? '☀️' : '🌙'}
+      </button>
 
-      <div className="ticks"></div>
+      <header className="app-header">
+        <h1>🎤 ELSA Y ELMAR</h1>
+        <p>Descubre la música, historia y carrera de Elsa y Elmar</p>
+      </header>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <main className="app-main">
+        <ArtistHeader />
+        <div className="container">
+          <Discografia artistId={ARTIST_ID} />
+          <Reproductor artistId={ARTIST_ID} />
+          <FotoGaleria artistId={ARTIST_ID} />
+          <CarreraTimeline artistId={ARTIST_ID} />
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </main>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <footer className="app-footer">
+        <p>
+          🎵 Powered by Spotify API •
+          © 2026 ElsayElmar •
+          <a href="http://localhost:5000/api/health" target="_blank" rel="noopener noreferrer">
+            Server Status
+          </a>
+        </p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
