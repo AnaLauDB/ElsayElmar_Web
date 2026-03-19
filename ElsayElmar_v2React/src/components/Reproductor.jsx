@@ -16,27 +16,32 @@ export default function Reproductor({ artistId }) {
             return;
         }
 
-        spotifyAPI.getTracks(artistId)
-            .then(data => {
-                console.log('🎵 Respuesta tracks:', data);
-                if (data && data.success && data.tracks) {
-                    // Filtrar solo canciones con preview disponible
-                    const tracksWithPreview = data.tracks.filter(t => t.previewUrl);
-                    setTracks(tracksWithPreview);
-                    if (tracksWithPreview.length === 0) {
-                        setError('No hay previsualizaciones disponibles para las canciones');
+        // ⏱️ Agregar pausa de 1000ms para evitar spam a Spotify
+        const timer = setTimeout(() => {
+            spotifyAPI.getTracks(artistId)
+                .then(data => {
+                    console.log('🎵 Respuesta tracks:', data);
+                    if (data && data.success && data.tracks) {
+                        // Filtrar solo canciones con preview disponible
+                        const tracksWithPreview = data.tracks.filter(t => t.previewUrl);
+                        setTracks(tracksWithPreview);
+                        if (tracksWithPreview.length === 0) {
+                            setError('No hay previsualizaciones disponibles para las canciones');
+                        } else {
+                            setError(null);
+                        }
                     } else {
-                        setError(null);
+                        setError(data?.error || 'No se pudieron cargar las canciones');
                     }
-                } else {
-                    setError(data?.error || 'No se pudieron cargar las canciones');
-                }
-            })
-            .catch(err => {
-                console.error('❌ Error en getTracks:', err);
-                setError(err.message || 'Error de conexión con la API');
-            })
-            .finally(() => setLoading(false));
+                })
+                .catch(err => {
+                    console.error('❌ Error en getTracks:', err);
+                    setError(err.message || 'Error de conexión con la API');
+                })
+                .finally(() => setLoading(false));
+        }, 1500); // ⏰ Espera reducida con cache
+
+        return () => clearTimeout(timer); // Limpiar si se desmonta
     }, [artistId]);
 
     const handlePlay = (index) => {

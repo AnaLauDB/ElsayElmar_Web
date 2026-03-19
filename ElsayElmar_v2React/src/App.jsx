@@ -21,7 +21,7 @@ import CarreraTimeline from './components/CarreraTimeline';
  */
 
 // 🎵 CONFIGURE ESTO CON EL ID DE ELSA Y ELMAR
-const ARTIST_ID = '5nKGeITSNCVP76muyOlszy'; // ← REEMPLAZA ESTO
+const ARTIST_ID = '5nKGeITSNCVP76muyOlszy';
 
 export default function App() {
   const [initialized, setInitialized] = useState(false);

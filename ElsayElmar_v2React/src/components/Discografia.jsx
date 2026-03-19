@@ -14,24 +14,29 @@ export default function Discografia({ artistId }) {
             return;
         }
 
-        spotifyAPI.getAlbums(artistId)
-            .then(data => {
-                console.log('📀 Respuesta albums:', data);
-                if (data && data.success && data.albums && data.albums.length > 0) {
-                    setAlbums(data.albums);
-                    setError(null);
-                } else if (data && data.success && Array.isArray(data.albums)) {
-                    setAlbums(data.albums);
-                    setError(null);
-                } else {
-                    setError(data?.error || 'No se pudieron obtener los álbumes');
-                }
-            })
-            .catch(err => {
-                console.error('❌ Error en getAlbums:', err);
-                setError(err.message || 'Error de conexión con la API');
-            })
-            .finally(() => setLoading(false));
+        // ⏱️ Agregar pausa de 500ms para evitar spam a Spotify
+        const timer = setTimeout(() => {
+            spotifyAPI.getAlbums(artistId)
+                .then(data => {
+                    console.log('📀 Respuesta albums:', data);
+                    if (data && data.success && data.albums && data.albums.length > 0) {
+                        setAlbums(data.albums);
+                        setError(null);
+                    } else if (data && data.success && Array.isArray(data.albums)) {
+                        setAlbums(data.albums);
+                        setError(null);
+                    } else {
+                        setError(data?.error || 'No se pudieron obtener los álbumes');
+                    }
+                })
+                .catch(err => {
+                    console.error('❌ Error en getAlbums:', err);
+                    setError(err.message || 'Error de conexión con la API');
+                })
+                .finally(() => setLoading(false));
+        }, 800); // ⏰ Espera reducida con cache
+
+        return () => clearTimeout(timer); // Limpiar si se desmonta
     }, [artistId]);
 
     if (loading) return <div className="loading">Cargando discografía...</div>;

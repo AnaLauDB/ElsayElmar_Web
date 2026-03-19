@@ -13,30 +13,35 @@ export default function CarreraTimeline({ artistId }) {
             return;
         }
 
-        spotifyAPI.getAlbums(artistId)
-            .then(data => {
-                if (data.success) {
-                    // Agrupar por años
-                    const byYear = {};
-                    data.albums.forEach(album => {
-                        const year = new Date(album.releaseDate).getFullYear();
-                        if (!byYear[year]) byYear[year] = [];
-                        byYear[year].push(album);
-                    });
+        // ⏱️ Agregar pausa de 1500ms para evitar spam a Spotify
+        const timer = setTimeout(() => {
+            spotifyAPI.getAlbums(artistId)
+                .then(data => {
+                    if (data.success) {
+                        // Agrupar por años
+                        const byYear = {};
+                        data.albums.forEach(album => {
+                            const year = new Date(album.releaseDate).getFullYear();
+                            if (!byYear[year]) byYear[year] = [];
+                            byYear[year].push(album);
+                        });
 
-                    // Convertir a array ordenado
-                    const sorted = Object.entries(byYear)
-                        .sort(([yearA], [yearB]) => parseInt(yearA) - parseInt(yearB))
-                        .map(([year, albums]) => ({
-                            year,
-                            albums: albums.sort((a, b) => new Date(a.releaseDate) - new Date(b.releaseDate))
-                        }));
+                        // Convertir a array ordenado
+                        const sorted = Object.entries(byYear)
+                            .sort(([yearA], [yearB]) => parseInt(yearA) - parseInt(yearB))
+                            .map(([year, albums]) => ({
+                                year,
+                                albums: albums.sort((a, b) => new Date(a.releaseDate) - new Date(b.releaseDate))
+                            }));
 
-                    setTimeline(sorted);
-                }
-            })
-            .catch(err => setError(err.message))
-            .finally(() => setLoading(false));
+                        setTimeline(sorted);
+                    }
+                })
+                .catch(err => setError(err.message))
+                .finally(() => setLoading(false));
+        }, 2200); // ⏰ Espera reducida con cache
+
+        return () => clearTimeout(timer); // Limpiar si se desmonta
     }, [artistId]);
 
     if (loading) return <div className="loading">Cargando timeline...</div>;
