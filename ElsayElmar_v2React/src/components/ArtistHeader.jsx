@@ -18,7 +18,7 @@ respetado en un nicho pop/indie que crece a diario. A lo largo de su
 
 export default function ArtistHeader() {
     return (
-        <div className="artist-header" style={{ backgroundImage: `url(${elsaImage})` }}>
+        <div className="artist-header">
             <div className="artist-overlay">
                 <img src={elsaImage} alt="Elsa y Elmar" className="artist-photo" />
                 <div className="artist-info">

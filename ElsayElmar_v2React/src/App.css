@@ -38,11 +38,11 @@
    ============================================================ */
 
 body.light-mode {
-  --bg-primary: #f5f3ff;
-  --bg-secondary: #faf8ff;
-  --text-primary: #1a1a2e;
-  --text-secondary: #6b6b7d;
-  --border-color: #e8e3ff;
+  --bg-primary: radial-gradient(circle, rgba(226, 63, 251, 1) 0%, rgba(252, 197, 70, 1) 64%);
+  --bg-secondary: radial-gradient(circle, rgba(226, 63, 251, 1) 0%, rgba(252, 197, 70, 1) 64%);
+  --text-primary: #1a1a1a;
+  --text-secondary: #333333;
+  --border-color: #2a2a2a;
 }
 
 /* ============================================================
