@@ -1,7 +1,12 @@
-/* ==========================================
-   🎤 ELSA Y ELMAR - Diseño Vibrante
-   Colores: Morado, Lila, Amarillo, Rosa
-   =========================================== */
+/* ============================================================
+   🎤 ELSA Y ELMAR - Aplicación Web
+   Organización: Secciones documentadas por componente
+   Tema: Modo Oscuro (default) + Modo Claro
+   ============================================================ */
+
+/* ============================================================
+   1️⃣ CONFIGURACIÓN GLOBAL Y VARIABLES
+   ============================================================ */
 
 * {
   margin: 0;
@@ -10,24 +15,28 @@
 }
 
 :root {
-  /* Colores Principales */
+  /* ─ Colores Principales ─ */
   --primary: #e23ffa;
   --primary-dark: #c41fe6;
   --accent: #fcb546;
   --secondary: #ff69b4;
   --tertiary: #c77dfa;
 
-  /* Modo Oscuro (por defecto) */
+  /* ─ Modo Oscuro (por defecto) ─ */
   --bg-primary: #0a0e27;
   --bg-secondary: #1a1f3a;
   --text-primary: #ffffff;
   --text-secondary: #b3bcc9;
   --border-color: #2a2f4a;
 
+  /* ─ Transiciones ─ */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Modo Claro */
+/* ============================================================
+   2️⃣ MODO CLARO - Sobrescribe variables :root
+   ============================================================ */
+
 body.light-mode {
   --bg-primary: #f5f3ff;
   --bg-secondary: #faf8ff;
@@ -35,6 +44,11 @@ body.light-mode {
   --text-secondary: #6b6b7d;
   --border-color: #e8e3ff;
 }
+
+/* ============================================================
+   3️⃣ BODY Y APP GENERAL
+   Componente: App.jsx
+   ============================================================ */
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -50,30 +64,6 @@ body {
   min-height: 100vh;
   background: radial-gradient(circle at 30% 0%, rgba(226, 63, 251, 0.15) 0%, rgba(252, 197, 70, 0.05) 40%, var(--bg-primary) 100%),
     linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-}
-
-.theme-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5rem;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(226, 63, 251, 0.4);
-}
-
-.theme-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(226, 63, 251, 0.6);
 }
 
 .app-header {
@@ -126,44 +116,36 @@ body {
   color: var(--accent);
 }
 
-/* ID BANNER */
-.id-banner {
+.theme-toggle {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(226, 63, 251, 0.4);
 }
 
-.banner-content {
-  background: var(--bg-secondary);
-  padding: 40px;
-  border-radius: 12px;
-  max-width: 600px;
-  border: 2px solid var(--primary);
-  box-shadow: 0 8px 32px rgba(226, 63, 251, 0.2);
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(226, 63, 251, 0.6);
 }
 
-.banner-content h2 {
-  color: var(--primary);
-  margin-bottom: 20px;
-}
+/* ============================================================
+   4️⃣ ARTIST HEADER
+   Componente: ArtistHeader.jsx
+   Muestra: Imagen (elsa_1.webp) + Biografía
+   ============================================================ */
 
-.banner-content code {
-  background-color: var(--bg-primary);
-  color: var(--accent);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Courier New', monospace;
-}
-
-/* ARTIST HEADER */
 .artist-header {
   min-height: 400px;
   background-size: cover;
@@ -195,7 +177,8 @@ body {
   width: 100%;
   padding: 40px;
   display: flex;
-  gap: 40px;
+  flex-direction: column;
+  gap: 20px;
   align-items: flex-start;
 }
 
@@ -209,109 +192,36 @@ body {
   border: 2px solid var(--primary);
 }
 
+.artist-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .artist-info h1 {
   font-size: 3rem;
   margin-bottom: 15px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
-.artist-info .genres {
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-}
-
-.artist-info .followers,
-.artist-info .popularity {
-
-  .artist-info .biography {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    line-height: 1.7;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    max-width: 600px;
-    text-align: justify;
-    animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
-  }
-
-  margin-bottom: 8px;
-
-  .artist-info .biography {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    line-height: 1.7;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    max-width: 600px;
-    text-align: justify;
-    animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
-  }
-
-  color: var(--text-secondary);
-
-  .artist-info .biography {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    line-height: 1.7;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    max-width: 600px;
-    text-align: justify;
-    animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
-  }
-}
-
 .artist-info .biography {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  line-height: 1.7;
+  margin-top: 10px;
+  margin-bottom: 0;
+  line-height: 1.8;
   color: var(--text-primary);
   font-size: 0.95rem;
-  max-width: 600px;
   text-align: justify;
   animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.spotify-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
-  color: #0a0e27;
-  padding: 12px 32px;
-  border-radius: 24px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: var(--transition);
-  margin-top: 15px;
-  border: none;
-  cursor: pointer;
-}
+/* ============================================================
+   5️⃣ DISCOGRAFÍA
+   Componente: Discografia.jsx
+   Muestra: Grid de álbumes de Spotify
+   ============================================================ */
 
-.spotify-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(252, 197, 70, 0.4);
-}
-
-/* SECCIONES */
-section {
-  margin-bottom: 60px;
-  padding: 40px;
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(226, 63, 251, 0.1);
-  border: 1px solid var(--border-color);
-}
-
-section h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* DISCOGRAFÍA */
 .albums-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -321,7 +231,7 @@ section h2 {
 .album-card {
   cursor: pointer;
   border-radius: 8px;
-  overflow: visible;
+  overflow: hidden;
   background: var(--bg-primary);
   border: 2px solid transparent;
   transition: var(--transition);
@@ -371,112 +281,12 @@ section h2 {
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* MODAL */
-.modal,
-.photo-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  backdrop-filter: blur(5px);
-}
+/* ============================================================
+   6️⃣ REPRODUCTOR (PLAYER)
+   Componente: Reproductor.jsx
+   Muestra: Player de audio con controles y playlist
+   ============================================================ */
 
-.modal-content,
-.photo-content {
-  background: var(--bg-secondary);
-  padding: 40px;
-  border-radius: 12px;
-  max-width: 500px;
-  width: 90%;
-  position: relative;
-  border: 2px solid var(--primary);
-  box-shadow: 0 8px 32px rgba(226, 63, 251, 0.3);
-}
-
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border: none;
-  color: white;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-}
-
-.close-btn:hover {
-  transform: rotate(90deg) scale(1.1);
-}
-
-.modal-content img,
-.photo-content img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.photo-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.photo-details h3 {
-  font-size: 1.6rem;
-  margin-bottom: 10px;
-  color: var(--text-primary);
-}
-
-.photo-category-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  padding: 6px 14px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  width: fit-content;
-  text-transform: uppercase;
-}
-
-.photo-details .photo-description {
-  color: var(--text-secondary);
-  margin-bottom: 15px;
-  font-size: 1rem;
-}
-
-.spotify-link {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  text-decoration: none;
-  transition: var(--transition);
-  margin-top: 15px;
-  border: none;
-  cursor: pointer;
-}
-
-.spotify-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(226, 63, 251, 0.3);
-}
-
-/* REPRODUCTOR */
 .player-container {
   background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(226, 63, 251, 0.05) 100%);
   padding: 40px;
@@ -572,7 +382,7 @@ section h2 {
   background: var(--bg-primary);
   padding: 25px;
   border-radius: 12px;
-  max-min-height: 400px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
@@ -624,7 +434,7 @@ section h2 {
 
 .track-title {
   white-space: nowrap;
-  overflow: visible;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -638,78 +448,30 @@ section h2 {
   color: white;
 }
 
-/* GALERÍA */
-.gallery-filters {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.filter-btn {
-  padding: 10px 20px;
-  background: transparent;
-  color: var(--text-secondary);
-  border: 2px solid var(--border-color);
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: var(--transition);
-  font-size: 0.95rem;
-}
-
-.filter-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.filter-btn.active {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  border-color: transparent;
-}
+/* ============================================================
+   7️⃣ GALERÍA DE FOTOS
+   Componente: FotoGaleria.jsx
+   Muestra: 4 imágenes locales alineadas en fila
+   Imágenes: colab1.webp, ojos_noche.webp, LittleJesus.jpg, elsaCan.jpeg
+   ============================================================ */
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
   animation: fadeIn 0.5s ease-in;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  margin-bottom: 40px;
 }
 
 .gallery-item {
   cursor: pointer;
   border-radius: 8px;
-  overflow: visible;
+  overflow: hidden;
   position: relative;
   border: 2px solid transparent;
   transition: var(--transition);
   animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   opacity: 0;
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .gallery-item:hover {
@@ -762,21 +524,18 @@ section h2 {
   color: white;
 }
 
-.photo-category {
-  font-size: 0.8rem;
-  color: var(--accent);
-  font-weight: 600;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-}
-
 .photo-description {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.95);
   line-height: 1.4;
 }
 
-/* TIMELINE */
+/* ============================================================
+   8️⃣ TIMELINE DE CARRERA
+   Componente: CarreraTimeline.jsx
+   Muestra: Timeline vertical con años y álbumes
+   ============================================================ */
+
 .timeline-container {
   position: relative;
   padding: 40px 0;
@@ -878,7 +637,116 @@ section h2 {
   font-size: 0.85rem;
 }
 
-/* ESTADOS */
+/* ============================================================
+   9️⃣ MODAL
+   Usado en: Discografia.jsx
+   Muestra: Detalles ampliados de álbum
+   ============================================================ */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  border: 2px solid var(--primary);
+  box-shadow: 0 8px 32px rgba(226, 63, 251, 0.3);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.close-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.modal-content h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.spotify-link {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: var(--transition);
+  margin-top: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.spotify-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(226, 63, 251, 0.3);
+}
+
+/* ============================================================
+   🔟 SECCIONES GENERALES
+   Estructura: Contenedor de todo componente
+   ============================================================ */
+
+section {
+  margin-bottom: 60px;
+  padding: 40px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(226, 63, 251, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   1️⃣1️⃣ ESTADOS (Loading, Error, Empty)
+   ============================================================ */
+
 .loading,
 .error,
 .empty {
@@ -905,7 +773,101 @@ section h2 {
   font-size: 1.1rem;
 }
 
-/* RESPONSIVE */
+/* ============================================================
+   1️⃣2️⃣ ANIMACIONES
+   ============================================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   1️⃣3️⃣ SCROLL BAR
+   Globalizado para toda la aplicación
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent), var(--primary));
+}
+
+/* ============================================================
+   1️⃣4️⃣ ID BANNER
+   Componente: Bandera de configuración
+   ============================================================ */
+
+.id-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.banner-content {
+  background: var(--bg-secondary);
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 600px;
+  border: 2px solid var(--primary);
+  box-shadow: 0 8px 32px rgba(226, 63, 251, 0.2);
+}
+
+.banner-content h2 {
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.banner-content code {
+  background-color: var(--bg-primary);
+  color: var(--accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================
+   1️⃣5️⃣ RESPONSIVE - Tableta (max-width: 1200px)
+   ============================================================ */
+
 @media (max-width: 1200px) {
   .artist-overlay {
     flex-direction: column;
@@ -936,7 +898,15 @@ section h2 {
     left: 0;
     transform: translateX(-50%);
   }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
+
+/* ============================================================
+   1️⃣6️⃣ RESPONSIVE - Celular (max-width: 768px)
+   ============================================================ */
 
 @media (max-width: 768px) {
   .app-header h1 {
@@ -962,45 +932,14 @@ section h2 {
   }
 
   .gallery-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .gallery-filters {
-    gap: 8px;
-  }
-
-  .filter-btn {
-    padding: 8px 14px;
-    font-size: 0.85rem;
-  }
-
-  .artist-header {
-    height: 300px;
-  }
-
-  .artist-photo {
-    width: 140px;
-    height: 140px;
-  }
-
-  .artist-info h1 {
-    font-size: 2rem;
-  }
-
-  .album-art {
-    width: 180px;
-    height: 180px;
-  }
-
-  .player-controls {
-    flex-direction: column;
-  }
-
-  .control-btn,
-  .play-btn {
-    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
+
+/* ============================================================
+   1️⃣7️⃣ RESPONSIVE - Móvil pequeño (max-width: 480px)
+   ============================================================ */
 
 @media (max-width: 480px) {
   .app-header {
@@ -1022,89 +961,34 @@ section h2 {
     margin-bottom: 20px;
   }
 
-  .albums-grid,
-  .gallery-grid {
+  .albums-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  .artist-header {
-    height: 250px;
-    margin-bottom: 30px;
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
-  .artist-overlay {
-    padding: 20px;
+  .timeline-item.left,
+  .timeline-item.right {
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 40px;
   }
 
-  .artist-photo {
-    width: 100px;
-    height: 100px;
-  }
-
-  .artist-info h1 {
-    font-size: 1.5rem;
-  }
-
-  .album-art {
-    width: 150px;
-    height: 150px;
-  }
-
-  .player-info h3 {
-    font-size: 1.3rem;
+  .timeline-container::before {
+    left: 0;
   }
 
   .player-controls {
     flex-direction: column;
-    gap: 10px;
   }
 
   .control-btn,
   .play-btn {
     width: 100%;
-    padding: 10px;
-    font-size: 0.9rem;
   }
-
-  .track-item {
-    grid-template-columns: 25px 1fr 45px;
-    font-size: 0.9rem;
-    padding: 10px;
-    gap: 10px;
-  }
-
-  .track-number {
-    font-size: 0.8rem;
-  }
-}
-
-/* SCROLLBAR */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--primary), var(--secondary));
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--accent), var(--primary));
-}
-
-/* === ESTILOS PARA BIOGRAFÍA DEL ARTISTA === */
-.artist-info .biography {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  line-height: 1.7;
-  color: var(--text-primary);
-  font-size: 0.95rem;
-  max-width: 600px;
-  text-align: justify;
-  animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
 }

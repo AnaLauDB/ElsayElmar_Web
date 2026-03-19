@@ -95,7 +95,7 @@ export default function App() {
         <div className="container">
           <Discografia artistId={ARTIST_ID} />
           <Reproductor artistId={ARTIST_ID} />
-          <FotoGaleria artistId={ARTIST_ID} />
+          <FotoGaleria />
           <CarreraTimeline artistId={ARTIST_ID} />
         </div>
       </main>

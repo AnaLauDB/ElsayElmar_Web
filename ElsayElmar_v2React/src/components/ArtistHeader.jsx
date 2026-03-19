@@ -10,7 +10,11 @@ respetado en un nicho pop/indie que crece a diario. A lo largo de su
  Songwriting (2014), le ha abierto el concierto a Coldplay en Bogotá (2016)
   y en 2019 fue nominada a los Grammy como "Mejor Nuevo Artista". Además,
    ha colaborado con importantes personalidades de la industria como Francisca 
-   Valenzuela, Elliot Moss, Little Jesus y Jesús Navarro, entre muchos otros. Desde el lanzamiento de su EP debut Sentirnos bien en 2013 y su álbum debut Rey en 2015, ha estado girando por todo el continente americano, incluyendo países como Colombia, Estados Unidos y México, teniendo presentaciones en festivales internacionales como Pal Norte, Vive Latino, Estéreo Picnic, entre otros.`;
+   Valenzuela, Elliot Moss, Little Jesus y Jesús Navarro, entre muchos otros. 
+   Desde el lanzamiento de su EP debut Sentirnos bien en 2013 y su álbum debut Rey en 2015,
+    ha estado girando por todo el continente americano, incluyendo países como Colombia, 
+    Estados Unidos y México, teniendo presentaciones en festivales internacionales como Pal Norte,
+     Vive Latino, Estéreo Picnic, entre otros.`;
 
 export default function ArtistHeader() {
     return (
